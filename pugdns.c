@@ -72,8 +72,8 @@ int dump_dns_packets(struct xdp_md *ctx)
     if ((void *)(udp + 1) > data_end)
         return XDP_PASS;
 
-    // 6. Filter DNS Response Source Port (Port 53)
-    if (udp->source != bpf_htons(53))
+    // 6. Filter DNS Response Source Port (Port 5354)
+    if (udp->source != bpf_htons(5354))
         return XDP_PASS;
 
     // 7. Filter Destination Port (Ephemeral Port Range)
@@ -120,7 +120,7 @@ int dump_dns_packets(struct xdp_md *ctx)
     }
 
     // 12. Populate Metadata (use the validated payload_size)
-    meta->src_port = 53;
+    meta->src_port = 5354;
     meta->dest_port = dest_port_h;
     meta->payload_size = payload_size; // Store the validated size
 
