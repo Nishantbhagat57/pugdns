@@ -72,8 +72,8 @@ int dump_dns_packets(struct xdp_md *ctx)
     if ((void *)(udp + 1) > data_end)
         return XDP_PASS;
 
-    // 6. Filter DNS Response Source Port (Port 5354)
-    if (udp->source != bpf_htons(5354))
+    // 6. Filter DNS Response Source Port (Port 5300)
+    if (udp->source != bpf_htons(5300))
         return XDP_PASS;
 
     // 7. Filter Destination Port (Ephemeral Port Range)
